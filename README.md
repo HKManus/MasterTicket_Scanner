@@ -43,3 +43,10 @@ def firebase_init():
 ```
 
 5. run scanner_returner.py and `uvicorn firebase_update_api:app --reload`
+6. check out url shown in the terminal and connect to it via any device on the same network as the server
+   example of terminal message: ` * Running on https://192.168.0.179:443`
+
+
+## Usage
+
+![Screenshot](/READMEFILE/interface.jpg)
