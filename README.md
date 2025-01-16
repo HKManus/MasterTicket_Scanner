@@ -42,4 +42,4 @@ def firebase_init():
     })
 ```
 
-5. run app.py
+5. run scanner_returner.py and `uvicorn firebase_update_api:app --reload`
