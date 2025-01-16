@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block title %}MasterTicket Scanner{% endblock %}
+
+{% block body %}
+
+<link rel='stylesheet' href="{{url_for('static', filename = 'scan.css')}}">
+<main>
+  
+
+  <section id="reader" class="g1"></section>
+
+  <section class="g2">
+    <h1>
+      <mark id="pass_y" class="green">-</mark>
+      <mark id="pass_n" class="red"></mark>
+    </h1>
+  </section>
+
+  <section class="g3">
+    
+    <h5>
+      <span>QRCODE</span>
+      <mark id="person_exist_y" class="green"></mark>
+      <mark id="person_exist_n" class="red"></mark>
+    </h5>
+    <h5>
+      <mark id="count_y" class="green"></mark>
+      <mark id="count_n" class="red"></mark>
+      <span>掃描</span>
+    </h5>
+    <h5>
+      <span>姓名: </span>
+      <span id="name" class="white"></span>
+    </h5>
+    <h5>
+      <span>人數: </span>
+      <span id="number" class="white"></span>
+    </h5>
+    <h5>
+      <span>進場時間: </span>
+      <span id="time" class="white"></span>
+    </h5>
+  </section>
+</main>
+<!-- ----------------------------------------------------------------------------- -->
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<script>
+    var last_decodedText = ""
+
+    function onScanSuccess(decodedText, decodedResult) {
+        if (decodedText != last_decodedText) {
+            last_decodedText = decodedText
+            // Handle on success condition with the decoded text or result.
+            console.log(`Scan result: ${decodedText}`, decodedResult);
+            fetch(`https://{{ ip }}/{{ event }}/${decodedText}`)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    console.log(data);
+
+                    
+                    
+                    // """person_exist""", count, name, number, time
+
+                    var name = "---";
+                    var number = "---";
+                    var time = "---";
+                    var count = "---";
+                    
+                    
+                    if (!(data["detail"] == "Not Found")) {
+
+                        var person_exist = data["person_exist"];
+
+                        if (person_exist == true) {
+                            console.log("person_exist!!!");
+                            count = data["count"];
+                            name = data["name"];
+                            number = data["number"];
+                            time = data["time"];
+
+                            if (!count) {
+                                pass = true;
+                            }
+                            else {
+                                pass = false;
+                            }
+                        }
+                        else {
+                            pass = false;
+                        }
+
+
+                    }
+                    else {
+                        pass = false;
+                    }
+
+
+                    // img = pass
+
+                    if (person_exist) {
+                        document.getElementById('person_exist_y').innerHTML = "有效";
+                        document.getElementById('person_exist_n').innerHTML = "";
+                    }
+                    else {
+                        document.getElementById('person_exist_y').innerHTML = "";
+                        document.getElementById('person_exist_n').innerHTML = "無效";
+                    }
+                    if (!count) {
+                        document.getElementById('count_y').innerHTML = "未";
+                        document.getElementById('count_n').innerHTML = "";
+                    }
+                    else {
+                        document.getElementById('count_y').innerHTML = "";
+                        document.getElementById('count_n').innerHTML = "已";
+                    }
+                    if (pass) {
+                        document.getElementById('pass_y').innerHTML = "O";
+                        document.getElementById('pass_n').innerHTML = "";
+                    }
+                    else {
+                        document.getElementById('pass_y').innerHTML = "";
+                        document.getElementById('pass_n').innerHTML = "X";
+                    }
+
+
+                    
+                    document.getElementById('name').innerHTML = name;
+                    document.getElementById('number').innerHTML = number;
+                    document.getElementById('time').innerHTML = time;
+                    
+                    
+                                            
+
+                });
+
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////
+
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess);
+
+    // document.getElementById('result').innerHTML = `
+    // <h2>Success!</h2>
+    // <span><a>${data.result}</a></span>
+    // `;
+
+</script>
+
+
+
+
+
+
+{% endblock %}

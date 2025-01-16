@@ -1,0 +1,102 @@
+body {
+    padding: 2%;
+
+    background-color: khaki;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    /* height: 95%; */
+    /* min-height: 620px; */
+    width: 100%;
+
+    /* background-color: rgba(245, 1, 1, 0.5); */
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.g1 {/* height: 40%; */
+    width: 95%;
+    /* min-height: 180px; */
+    margin: 2%;
+    padding: 2%;
+
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.g2 {
+    /* height: 10%; */
+    width: 95%;
+    /* min-height: 100px; */
+    margin: 2%;
+    padding: 2%;
+
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+.g3 {
+    /* height: auto; */
+    width: 95%;
+    /* min-height: 240px; */
+    margin: 2%;
+    padding: 2%;
+
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    background-color: rgb(194, 194, 194);
+    border-radius: 10px;
+    border-width: 0;
+    margin: 0;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    touch-action: manipulation;
+}
+
+
+video {
+    width: 100%;
+}
+
+mark {
+    padding: 0px;
+}
+
+.red {
+	background-color: rgba(255, 0, 0, 0.5);
+}
+
+.green {
+	background-color: rgba(0, 255, 0, 0.5);
+}
+
+.white {
+	background-color: rgba(200, 200, 200, 0.5);
+}
